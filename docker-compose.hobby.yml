@@ -147,8 +147,8 @@ services:
             file: docker-compose.base.yml
             service: proxy
         ports:
-            - '80:80'
-            - '443:443'
+            - '8088:80'    # antes: 80:80
+            - '4443:443'   # antes: 443:443
         volumes:
             - caddy-data:/data
             - caddy-config:/config
@@ -165,8 +165,8 @@ services:
         volumes:
             - objectstorage:/data
         ports:
-            - '19000:19000'
-            - '19001:19001'
+            - '19100:19000'  # antes: 19000:19000
+            - '19101:19001'  # antes: 19001:19001
 
     asyncmigrationscheck:
         extends:
@@ -186,7 +186,7 @@ services:
         environment:
             - ENABLE_ES=false
         ports:
-            - 7233:7233
+            - '17233:7233'   # antes: 7233:7233
         volumes:
             - ./posthog/docker/temporal/dynamicconfig:/etc/temporal/config/dynamicconfig
     elasticsearch:
@@ -204,7 +204,7 @@ services:
             file: docker-compose.base.yml
             service: temporal-ui
         ports:
-            - 8081:8080
+            - '18081:8080'   # antes: 8081:8080
         depends_on:
             temporal:
                 condition: service_started
@@ -272,7 +272,7 @@ services:
         environment:
             - LIVESTREAM_JWT_SECRET=${POSTHOG_SECRET}
         ports:
-            - '8666:8080'
+            - '18666:8080'   # antes: 8666:8080
         volumes:
             - ./posthog/docker/livestream/configs-hobby.yml:/configs/configs.yml
 
